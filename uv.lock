@@ -294,6 +294,7 @@ name = "reno-structured-output"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [
+    { name = "pyyaml" },
     { name = "reno" },
 ]
 
@@ -304,7 +305,10 @@ dev = [
 ]
 
 [package.metadata]
-requires-dist = [{ name = "reno", specifier = ">=4.0.0" }]
+requires-dist = [
+    { name = "pyyaml", specifier = ">=6.0.2" },
+    { name = "reno", specifier = ">=4.0.0" },
+]
 
 [package.metadata.requires-dev]
 dev = [
