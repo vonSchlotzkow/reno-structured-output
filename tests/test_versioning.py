@@ -51,4 +51,4 @@ def test_reno():
 
     print(json.dumps(relnotes_content, indent=2))
 
-    assert relnotes == "X"
+    assert "v0.0.2" in list(relnotes.keys())
