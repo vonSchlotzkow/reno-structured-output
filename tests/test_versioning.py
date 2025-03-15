@@ -1,5 +1,6 @@
 from importlib import metadata
 from pathlib import Path
+
 import yaml
 
 
@@ -8,7 +9,7 @@ def test_version():
 
 
 def test_reno():
-    from reno import scanner, config
+    from reno import config, scanner
 
     conf = config.Config("./")
     with scanner.Scanner(conf) as scnr:
