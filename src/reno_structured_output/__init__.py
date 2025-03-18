@@ -6,7 +6,8 @@ from reno.config import Config
 from reno.scanner import Scanner
 
 
-def collect_notes(conf: Config = Config("./")) -> dict:
+def collect_notes(conf: Config | None = None) -> dict:
+    conf = conf or Config("./")
     with Scanner(conf) as scnr:
         relnotes = scnr.get_notes_by_version()
 
@@ -17,7 +18,7 @@ def collect_notes(conf: Config = Config("./")) -> dict:
         version_files = [x[0] for x in version_details]
         for f in version_files:
             version_file_content = yaml.load(
-                (reporoot / f).read_text(), Loader=yaml.FullLoader
+                (reporoot / f).read_text(), Loader=yaml.SafeLoader
             )
             for category, notes in version_file_content.items():
                 if isinstance(notes, str):
@@ -26,6 +27,3 @@ def collect_notes(conf: Config = Config("./")) -> dict:
                     relnotes_content[version][category].extend(notes)
 
     return relnotes_content
-
-
-import json

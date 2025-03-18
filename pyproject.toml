@@ -32,4 +32,9 @@ source = "vcs"
 fix=true
 
 [tool.ruff.lint]
-select = ["I"]
+extend-select = ["I", "UP", "C90", "TRY", "TD", "S", "BLE", "B", "A", "C4", "FURB", "ERA", "Q", "F", "E"]
+
+
+[tool.ruff.lint.extend-per-file-ignores]
+# Allow the use of 'assert' in test files.
+"test_*.py" = ["S101"]
