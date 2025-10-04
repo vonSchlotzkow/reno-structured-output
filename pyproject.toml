@@ -20,6 +20,9 @@ dev = [
     "pytest-mypy>=0.10.3",
     "types-pyyaml>=6.0.12.20241230",
 ]
+nox = [
+    "nox-uv>=0.6.2",
+]
 
 [build-system]
 requires = ["hatchling", "hatch-vcs"]
