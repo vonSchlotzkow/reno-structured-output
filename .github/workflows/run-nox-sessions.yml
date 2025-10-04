@@ -12,6 +12,9 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - uses: wntrblm/nox@main
+    - id: install-nox-uv
+      shell: bash
+      run: uv pip install nox-uv
     - id: set-matrix
       shell: bash
       run: echo session=$(nox --json -l | jq -c '[.[].session]') | tee --append $GITHUB_OUTPUT
