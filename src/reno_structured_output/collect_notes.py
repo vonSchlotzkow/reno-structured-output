@@ -1,12 +1,13 @@
 from collections import defaultdict
 from pathlib import Path
+from typing import Union
 
 import yaml
 from reno.config import Config
 from reno.scanner import Scanner
 
 
-def collect_notes(conf: Config | None = None) -> dict:
+def collect_notes(conf: Union[Config, None] = None) -> dict:
     conf = conf or Config("./")
     with Scanner(conf) as scnr:
         relnotes = scnr.get_notes_by_version()
