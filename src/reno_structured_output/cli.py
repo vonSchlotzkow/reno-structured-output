@@ -23,6 +23,9 @@ parser.add_argument(
     "--rel-notes-dir",
     help="location of release notes YAML files (relative to reporoot)",
 )
+parser.add_argument(
+    "-p", "--pretty", action="store_true", help="pretty-print JSON output"
+)
 parser.add_argument("-v", "--verbose", action="count", default=0)
 parser.add_argument("-q", "--quieter", action="count", default=0)
 
@@ -36,5 +39,7 @@ def main() -> int:
     )
     print(args, file=sys.stderr)
     config = Config(args.reporoot, relnotesdir=args.rel_notes_dir)
-    print(json.dumps(collect_notes(config), indent=2, sort_keys=False))
+    structured_notes = collect_notes(config)
+    indent = 2 if args.pretty else None
+    print(json.dumps(structured_notes, indent=indent, sort_keys=False))
     return 0
