@@ -16,6 +16,7 @@ def collect_notes(conf: Union[Config, None] = None) -> dict:
 
     relnotes_content: dict = defaultdict(lambda: defaultdict(list))
     for version, version_details in relnotes.items():
+        relnotes_content[version]["notes"] = defaultdict(list)
         version_files = [x[0] for x in version_details]
         for f in version_files:
             version_file_content = yaml.load(
@@ -23,8 +24,8 @@ def collect_notes(conf: Union[Config, None] = None) -> dict:
             )
             for category, notes in version_file_content.items():
                 if isinstance(notes, str):
-                    relnotes_content[version][category].append(notes)
+                    relnotes_content[version]["notes"][category].append(notes)
                 else:
-                    relnotes_content[version][category].extend(notes)
+                    relnotes_content[version]["notes"][category].extend(notes)
 
-    return relnotes_content
+    return {"relnotes": relnotes_content}

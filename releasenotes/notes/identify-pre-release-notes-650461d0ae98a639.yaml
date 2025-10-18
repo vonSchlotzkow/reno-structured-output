@@ -1,0 +1,3 @@
+---
+upgrade:
+  - Introduce additional sub-hierarchy in the output to allow future extensions.
