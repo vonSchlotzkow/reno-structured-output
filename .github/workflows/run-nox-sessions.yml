@@ -2,6 +2,9 @@ name: Discover and run nox sessions
 # discover nox jobs and run them, es suggested by nox docu:
 # https://nox.thea.codes/en/stable/cookbook.html#generating-a-matrix-with-github-actions
 
+permissions:
+  contents: read
+
 on: push
 
 jobs:
