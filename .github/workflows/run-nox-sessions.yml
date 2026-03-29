@@ -1,0 +1,35 @@
+name: Discover and run nox sessions
+# discover nox jobs and run them, es suggested by nox docu:
+# https://nox.thea.codes/en/stable/cookbook.html#generating-a-matrix-with-github-actions
+
+permissions:
+  contents: read
+
+on: push
+
+jobs:
+  generate-jobs:
+    runs-on: ubuntu-latest
+    outputs:
+      session: ${{ steps.set-matrix.outputs.session }}
+    steps:
+    - uses: actions/checkout@v3
+    - uses: wntrblm/nox@main
+    - id: install-nox-uv
+      shell: bash
+      run: python3 -m pip install nox-uv --user
+    - id: set-matrix
+      shell: bash
+      run: echo session=$(nox --json -l | jq -c '[.[].session]') | tee --append $GITHUB_OUTPUT
+  checks:
+    name: Session ${{ matrix.session }}
+    needs: [ generate-jobs ]
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        session: ${{ fromJson(needs.generate-jobs.outputs.session) }}
+    steps:
+    - uses: actions/checkout@v3
+    - uses: wntrblm/nox@main
+    - run: nox -s "${{ matrix.session }}"
